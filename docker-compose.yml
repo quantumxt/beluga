@@ -1,0 +1,23 @@
+services:
+  beluga_ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ROS_ENV: "jazzy"
+    image: beluga_ros2
+    tty: true         # Enable TTY allocation
+    stdin_open: true  # Keep stdin open for interactive input
+    user: "${UID}:${GID}"
+    volumes:
+      - ./beluga_ws:/home/user/beluga_ws
+      - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/tmp/wayland-sock
+      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+    network_mode: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
