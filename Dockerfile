@@ -2,16 +2,15 @@ ARG ROS_ENV="humble"
 FROM nvidia/cudagl:11.3.0-devel
 FROM osrf/ros:${ROS_ENV}-desktop
 
-RUN apt update
-RUN apt install vim tmux gdb wget git cmake python3-pip curl iputils-ping -y		# Install Tools
-RUN apt install python3-colcon-common-extensions python3-vcstool -y			# Install ROS specific tools
-RUN apt update && apt install -y lsb-release gnupg ros-${ROS_DISTRO}-ros-ign-bridge	# Prep gazebo install
+RUN apt update && apt install -y vim tmux gdb wget git cmake python3-pip curl iputils-ping && rm -rf /var/lib/apt/lists/*		# Install Tools
+RUN apt update && apt install -y python3-colcon-common-extensions python3-vcstool && rm -rf /var/lib/apt/lists/*			# Install ROS specific tools
+RUN apt update && apt install -y lsb-release gnupg ros-${ROS_DISTRO}-ros-ign-bridge && rm -rf /var/lib/apt/lists/*	                # Prep gazebo install
 
 # Setup Gazebo Harmonic
 RUN wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
 RUN wget https://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
-RUN apt update && apt-get install gz-harmonic -y
+RUN apt update && apt-get install gz-harmonic -y && rm -rf /var/lib/apt/lists/*
 
 # Add user
 ENV USERNAME user
