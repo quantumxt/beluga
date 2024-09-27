@@ -2,7 +2,7 @@ ARG ROS_ENV="humble"
 FROM nvidia/cudagl:11.3.0-devel
 FROM osrf/ros:${ROS_ENV}-desktop
 
-RUN apt update && apt install -y vim tmux gdb wget git cmake python3-pip curl iputils-ping && rm -rf /var/lib/apt/lists/*		# Install Tools
+RUN apt update && apt install -y vim tmux gdb wget git cmake python3-pip curl iputils-ping htop && rm -rf /var/lib/apt/lists/*		# Install Tools
 RUN apt update && apt install -y python3-colcon-common-extensions python3-vcstool && rm -rf /var/lib/apt/lists/*			# Install ROS specific tools
 RUN apt update && apt install -y lsb-release gnupg ros-${ROS_DISTRO}-ros-ign-bridge && rm -rf /var/lib/apt/lists/*	                # Prep gazebo install
 
