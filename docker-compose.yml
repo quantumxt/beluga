@@ -1,0 +1,16 @@
+services:
+  beluga_ros2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ROS_ENV: "humble" 
+    image: beluga_ros2
+    tty: true         # Enable TTY allocation
+    stdin_open: true  # Keep stdin open for interactive input
+    env_file:
+      - .env.local
+    user: user
+    volumes:
+      - ./beluga_ws:/home/user/beluga_ws
+    network_mode: host
