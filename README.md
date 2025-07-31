@@ -13,6 +13,10 @@ Run ROS2 in a dockerised environment!
 
 Ensure that [Docker](https://docs.docker.com/engine/install/ubuntu/) & [Nvidia Container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) is installed before running the container.
 
+## CPU (experimental)
+
+Use the `feat/cpu` branch for docker image without gpu. Display does not work currently.
+
 # Config
 
 ## ROS Version

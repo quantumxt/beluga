@@ -19,10 +19,3 @@ services:
       - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
       - ./beluga_ws:/home/user/beluga_ws
     network_mode: host
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]

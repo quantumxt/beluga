@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
+FROM ubuntu:24.04
 
 ARG ROS_ENV="placeholder"
 ARG ROS_TYPE="base"
