@@ -1,0 +1,15 @@
+# Tools
+vim
+tmux
+gdb
+wget
+curl
+git
+cmake
+python3-pip
+iputils-ping
+htop
+
+# Gz
+lsb-release
+gnupg
