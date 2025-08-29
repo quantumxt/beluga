@@ -16,12 +16,12 @@ Ensure that [Docker](https://docs.docker.com/engine/install/ubuntu/) & [Nvidia C
 # Config
 
 ## ROS Version
-The target distro could be change via the `ROS_ENV` arguement inside `docker-compose.yml` file.
+The target distro could be change via the `ROS_ENV` arguement inside `docker/.env` file.
 
 ```yaml
     ...
-    args:
-      ROS_ENV="jazzy" # Change here
+    # === Update config below ===
+    ROS_ENV="jazzy"
     ...
 ```
 
