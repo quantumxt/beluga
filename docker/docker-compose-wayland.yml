@@ -1,8 +1,8 @@
 services:
   ros2:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: ./docker/Dockerfile
       args:
         ROS_ENV: "jazzy"
         UID: ${UID}
@@ -12,17 +12,16 @@ services:
     stdin_open: true  # Keep stdin open for interactive input
     environment:
       - DISPLAY=${DISPLAY}
-      - QT_QPA_PLATFORM=wayland
+      - QT_QPA_PLATFORM=${QT_QPA_PLATFORM}
       - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
       - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
     user: "${UID}:${GID}"
     volumes:
-      - ./beluga_ws:/home/user/beluga_ws
-      - /tmp/.X11-unix:/tmp/.X11-unix
       - /run/user/1000/wayland-0:/run/user/1000/wayland-0
       - /dev/dri:/dev/dri
       - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/tmp/wayland-sock
       - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+      - ./beluga_ws:/home/user/beluga_ws
     network_mode: host
     deploy:
       resources:
