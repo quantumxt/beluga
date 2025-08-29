@@ -7,6 +7,7 @@ SESSION_TYPE=$(loginctl show-session "$SESSION_ID" --property=Type --value)
 echo "Detected display manager: $SESSION_TYPE"
 
 if [ "$SESSION_TYPE" == "wayland" ]; then
+    xhost +local:docker
     docker compose -f docker-compose-wayland.yml up -d
 elif [ "$SESSION_TYPE" == "x11" ]; then
     docker compose -f docker-compose-x11.yml up -d
