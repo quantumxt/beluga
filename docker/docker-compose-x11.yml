@@ -4,15 +4,12 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
-        ROS_ENV: "jazzy"
+        ROS_ENV: ${ROS_ENV}
         UID: ${UID}
         GID: ${GID}
     image: beluga_ros2
     tty: true         # Enable TTY allocation
     stdin_open: true  # Keep stdin open for interactive input
-    environment:
-      - DISPLAY=${DISPLAY}
-      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
     user: "${UID}:${GID}"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix

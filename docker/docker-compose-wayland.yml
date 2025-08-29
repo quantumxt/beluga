@@ -4,17 +4,12 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
-        ROS_ENV: "jazzy"
+        ROS_ENV: ${ROS_ENV}
         UID: ${UID}
         GID: ${GID}
     image: beluga_ros2
     tty: true         # Enable TTY allocation
     stdin_open: true  # Keep stdin open for interactive input
-    environment:
-      - DISPLAY=${DISPLAY}
-      - QT_QPA_PLATFORM=${QT_QPA_PLATFORM}
-      - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
-      - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
     user: "${UID}:${GID}"
     volumes:
       - /run/user/1000/wayland-0:/run/user/1000/wayland-0
