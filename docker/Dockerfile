@@ -2,10 +2,10 @@ FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
 ARG ROS_ENV="placeholder"
 ENV ROS_ENV=${ROS_ENV}
-ENV PKG_FILE="docker/packages.txt"
+ENV PKG_FILE="packages.txt"
 
 RUN apt update && apt install -y software-properties-common && add-apt-repository universe && rm -rf /var/lib/apt/lists/*
-COPY $PKG_FILE .
+COPY docker/$PKG_FILE .
 RUN echo -n "The following packages would be installed: [" && \
     grep -vE '^\s*($|#)' $PKG_FILE | paste -sd, - | tr -d '\n' && \
     echo "]"
