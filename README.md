@@ -1,9 +1,11 @@
 # Beluga
-Dockerised ROS2.
+
+Run ROS2 in a dockerised environment!
 
 > **System tested**
-> - Ubuntu 24.04: ✅
-> - Fedora 42: ✅
+> - ✅ Ubuntu 22.04 (amd64/arm64)
+> - ✅ Ubuntu 24.04 (amd64)
+> - ✅ Fedora 42 (amd64)
 
 ## Pre-requisites
 
