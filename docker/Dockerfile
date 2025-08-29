@@ -21,6 +21,7 @@ RUN apt update && apt install -y ros-${ROS_ENV}-desktop && rm -rf /var/lib/apt/l
 RUN apt update && apt install -y ros-${ROS_ENV}-ros-gz && rm -rf /var/lib/apt/lists/*
 
 RUN userdel -r ubuntu
+
 # Add user
 ARG UID=1000
 ARG GID=1000
