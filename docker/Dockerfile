@@ -2,14 +2,15 @@ FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
 ARG ROS_ENV="placeholder"
 ENV ROS_ENV=${ROS_ENV}
+ENV PKG_FILE="docker/packages.txt"
 
 RUN apt update && apt install -y software-properties-common && add-apt-repository universe && rm -rf /var/lib/apt/lists/*
-COPY pre_req.txt .
+COPY $PKG_FILE .
 RUN echo -n "The following packages would be installed: [" && \
-    grep -vE '^\s*($|#)' pre_req.txt | paste -sd, - | tr -d '\n' && \
+    grep -vE '^\s*($|#)' $PKG_FILE | paste -sd, - | tr -d '\n' && \
     echo "]"
-RUN apt update && grep -vE '^\s*($|#)' pre_req.txt | xargs apt install -y && \
-    rm pre_req.txt && rm -rf /var/lib/apt/lists/*
+RUN apt update && grep -vE '^\s*($|#)' $PKG_FILE | xargs apt install -y && \
+    rm $PKG_FILE && rm -rf /var/lib/apt/lists/*
 
 RUN export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}') && echo ">>>> ROS_APT_SOURCE_VERSION = {$ROS_APT_SOURCE_VERSION}" && \
     curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb" # If using Ubuntu derivates use $UBUNTU_CODENAME
