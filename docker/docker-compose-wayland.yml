@@ -11,7 +11,8 @@ services:
     tty: true         # Enable TTY allocation
     stdin_open: true  # Keep stdin open for interactive input
     environment:
-      - QT_QPA_PLATFORM=wayland
+      - DISPLAY=${DISPLAY}
+      - QT_QPA_PLATFORM=${QT_QPA_PLATFORM}
       - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
       - XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
     user: "${UID}:${GID}"
