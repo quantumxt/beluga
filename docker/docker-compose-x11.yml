@@ -17,6 +17,7 @@ services:
       - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
       - ./beluga_ws:/home/user/beluga_ws
     network_mode: host
+    runtime: nvidia
     deploy:
       resources:
         reservations:
