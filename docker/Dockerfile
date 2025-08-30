@@ -1,7 +1,10 @@
 FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
 
 ARG ROS_ENV="placeholder"
+ARG ROS_TYPE="base"
+
 ENV ROS_ENV=${ROS_ENV}
+ENV ROS_TYPE=${ROS_TYPE}
 ENV PKG_FILE="packages.txt"
 
 RUN apt update && apt install -y software-properties-common && add-apt-repository universe && rm -rf /var/lib/apt/lists/*
@@ -18,8 +21,7 @@ RUN apt install /tmp/ros2-apt-source.deb
 
 # Dev tools
 RUN apt update && apt install -y ros-dev-tools && rm -rf /var/lib/apt/lists/*
-RUN apt update && apt install -y ros-${ROS_ENV}-desktop && rm -rf /var/lib/apt/lists/*
-RUN apt update && apt install -y ros-${ROS_ENV}-ros-gz && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y ros-${ROS_ENV}-${ROS_TYPE} && rm -rf /var/lib/apt/lists/*
 
 RUN userdel -r ubuntu
 
@@ -36,8 +38,3 @@ USER $USERNAME
 
 WORKDIR /home/$USERNAME
 RUN echo "source /opt/ros/${ROS_ENV}/setup.bash" >> .bashrc
-
-# Clone gazebo models for faster loading, comment section if not needed
-#RUN cd ~/. && git clone https://github.com/osrf/gazebo_models --progress
-#RUN mkdir -p ~/.gazebo/models
-#RUN cd gazebo_models && cp -r ./* ~/.gazebo/models/.
