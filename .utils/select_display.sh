@@ -6,6 +6,11 @@ USER=$(whoami)
 SESSION_ID=$(loginctl | grep "$USER" -m 1 | awk '{print $1}')
 SESSION_TYPE=$(loginctl show-session "$SESSION_ID" --property=Type --value)
 
+get_config () {
+    R_TYPE=$(cat .env | grep $1 | awk '{print $1}')
+    echo $R_TYPE
+}
+
 d_up () {
     docker compose -f docker-compose-$1.yml up -d
 }
@@ -33,6 +38,11 @@ else
 fi
 
 cd docker
+
+echo "=== Config ==="
+get_config "ROS_ENV"
+get_config "ROS_TYPE"
+echo ""
 
 if [[ "$BELUGA_BUILT" == 0 ]]; then
     d_build x11

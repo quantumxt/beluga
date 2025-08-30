@@ -5,6 +5,7 @@ services:
       dockerfile: ./docker/Dockerfile
       args:
         ROS_ENV: ${ROS_ENV}
+        ROS_TYPE: ${ROS_TYPE}
         UID: ${UID}
         GID: ${GID}
     image: beluga_ros2
