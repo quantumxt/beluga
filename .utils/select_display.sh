@@ -20,26 +20,27 @@ check_output() {
         echo ">> Build: OK"
     else
         echo ">> Build: ERROR"
+        exit 1
     fi
 }
 
 cd docker
+
+if [[ "$BELUGA_BUILT" == 0 ]]; then
+    d_build x11
+    check_output $?
+fi
+
 echo "=== Detected display manager: $SESSION_TYPE ==="
 
 if [ "$SESSION_TYPE" == "wayland" ]; then
-    if [[ "$BELUGA_BUILT" == 0 ]]; then
-        d_build $SESSION_TYPE
-        check_output $?
-    fi
     xhost +local:docker
-    d_up $SESSION_TYPE
+    echo "<< Starting with wayland..."
 elif [ "$SESSION_TYPE" == "x11" ]; then
-    if [[ "$BELUGA_BUILT" == 0 ]]; then
-        d_build $SESSION_TYPE
-        check_output $?
-    fi
-    d_up $SESSION_TYPE
+    echo "<< Starting with x11..."
 else
-    echo "Unable to detect display manager, exiting..."
+    echo "<< Unable to determine display manager [$SESSION_TYPE], using x11..."
     exit 1
 fi
+
+d_up $SESSION_TYPE
