@@ -24,6 +24,14 @@ check_output() {
     fi
 }
 
+CUDA_VER=$(cat /usr/local/cuda/version.json | grep -w "cuda" -A 2 | grep version | awk '{print substr($3,2,length($3)-2)}')
+
+if [[ -z $CUDA_VER ]]; then
+    echo -e "\nCUDA not found!\n"
+else
+    echo -e "\nCUDA version: [$CUDA_VER]\n"
+fi
+
 cd docker
 
 if [[ "$BELUGA_BUILT" == 0 ]]; then
