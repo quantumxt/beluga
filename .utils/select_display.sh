@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .check_build.sh
+source .utils/check_build.sh
 
 USER=$(whoami)
 SESSION_ID=$(loginctl | grep "$USER" -m 1 | awk '{print $1}')
