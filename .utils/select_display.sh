@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .check_build.sh
+source .utils/check_build.sh
 
 USER=$(whoami)
 SESSION_ID=$(loginctl | grep "$USER" -m 1 | awk '{print $1}')
@@ -20,26 +20,35 @@ check_output() {
         echo ">> Build: OK"
     else
         echo ">> Build: ERROR"
+        exit 1
     fi
 }
 
+CUDA_VER=$(cat /usr/local/cuda/version.json | grep -w "cuda" -A 2 | grep version | awk '{print substr($3,2,length($3)-2)}')
+
+if [[ -z $CUDA_VER ]]; then
+    echo -e "\nCUDA not found!\n"
+else
+    echo -e "\nCUDA version: [$CUDA_VER]\n"
+fi
+
 cd docker
+
+if [[ "$BELUGA_BUILT" == 0 ]]; then
+    d_build x11
+    check_output $?
+fi
+
 echo "=== Detected display manager: $SESSION_TYPE ==="
 
 if [ "$SESSION_TYPE" == "wayland" ]; then
-    if [[ "$BELUGA_BUILT" == 0 ]]; then
-        d_build $SESSION_TYPE
-        check_output $?
-    fi
     xhost +local:docker
-    d_up $SESSION_TYPE
+    echo "<< Starting with wayland..."
 elif [ "$SESSION_TYPE" == "x11" ]; then
-    if [[ "$BELUGA_BUILT" == 0 ]]; then
-        d_build $SESSION_TYPE
-        check_output $?
-    fi
-    d_up $SESSION_TYPE
+    echo "<< Starting with x11..."
 else
-    echo "Unable to detect display manager, exiting..."
+    echo "<< Unable to determine display manager [$SESSION_TYPE], using x11..."
     exit 1
 fi
+
+d_up $SESSION_TYPE

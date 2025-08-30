@@ -36,16 +36,6 @@ The workspace directory that is attached to the container is defined in the `vol
 ```
 
 # Docker
-## Building the image
-
-Currently, the image have to be build locally before it could be used. To build the Docker image. To build the image:
-
-```sh
-cd ~/beluga
-docker compose build
-```
-
-> **Note:** To build with verbose, add the `--progress=plain` flag after the build.
 
 ## Running the container
 
