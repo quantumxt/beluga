@@ -1,9 +1,11 @@
 services:
   ros2-cpu:
+    profiles: [cpu]
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
+        DISPLAY: ${DISPLAY}
         ROS_ENV: ${ROS_ENV}
         ROS_TYPE: ${ROS_TYPE}
         UID: ${UID}
@@ -19,10 +21,12 @@ services:
       - ./beluga_ws:/home/user/beluga_ws
     network_mode: host
   ros2-gpu:
+    profiles: [gpu]
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
+        DISPLAY: ${DISPLAY}
         ROS_ENV: ${ROS_ENV}
         ROS_TYPE: ${ROS_TYPE}
         UID: ${UID}
