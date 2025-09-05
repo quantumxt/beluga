@@ -6,6 +6,7 @@ ARG ROS_TYPE="base"
 
 ENV ROS_ENV=${ROS_ENV}
 ENV ROS_TYPE=${ROS_TYPE}
+ENV DISPLAY=${DISPLAY}
 ENV PKG_FILE="packages.txt"
 
 RUN apt update && apt install -y software-properties-common && add-apt-repository universe && rm -rf /var/lib/apt/lists/*

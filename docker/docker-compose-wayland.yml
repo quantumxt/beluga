@@ -5,6 +5,7 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
+        DISPLAY: ${DISPLAY}
         ROS_ENV: ${ROS_ENV}
         ROS_TYPE: ${ROS_TYPE}
         UID: ${UID}
@@ -26,6 +27,7 @@ services:
       context: ..
       dockerfile: ./docker/Dockerfile
       args:
+        DISPLAY: ${DISPLAY}
         ROS_ENV: ${ROS_ENV}
         ROS_TYPE: ${ROS_TYPE}
         UID: ${UID}
