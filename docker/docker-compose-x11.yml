@@ -19,6 +19,8 @@ x-ros2-base: &ros2-base
     - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
     - ./beluga_ws:/home/user/beluga_ws
   network_mode: host
+  # devices:
+    # - /dev/ttyUSB0:/dev/ttyUSB0
 
 services:
   ros2-cpu:
