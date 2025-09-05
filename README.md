@@ -1,6 +1,6 @@
 # Beluga
 
-Run ROS2 in a dockerised environment!
+Run ROS2 in a dockerised environment, which automatically detects the host hardware and selects the runtime accordingly.
 
 > **System tested**
 > - ✅ Ubuntu 22.04 (amd64/arm64)
@@ -9,14 +9,16 @@ Run ROS2 in a dockerised environment!
 
 ## Pre-requisites
 
-> **Note:** This docker image only works with Nvidia GPU currently.
+### GPU runtime (Optional)
 
-Ensure that [Docker](https://docs.docker.com/engine/install/ubuntu/) & [Nvidia Container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) is installed before running the container.
+> **Note:** Only Nvidia GPU is supported currently.
+
+Ensure that [Docker](https://docs.docker.com/engine/install/ubuntu/) & [Nvidia Container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html) is installed to use the GPU runtime of the container.
 
 # Config
 
 ## ROS Version
-The target distro could be change via the `ROS_ENV` arguement inside `docker/.env` file.
+The target distro could be change via the `ROS_ENV` arguement inside `ros_config` file.
 
 ```yaml
     ...
@@ -50,20 +52,7 @@ sudo chmod +x enter_env.sh
 
 > If you are using Wayland and/or Fedora, please do not skip this section as RViz2 may crash upon launching the usual way.
 
-To run RViz2 in docker, there are a few additional steps to be taken. Before starting the container, ensure that Docker is allowed to access the X server (the display).
-
-> **Note:** If the container is currently running, stop the container first before adding the docker to the xhost. 
-
-```sh
-xhost +local:docker
-```
-
-After that, restart the container.
-
-```sh
-cd ~/beluga
-./enter_env.sh
-```
+To run RViz2 in docker, there are a few additional steps to be taken.
 
 ### RViz2
 

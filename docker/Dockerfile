@@ -1,4 +1,5 @@
-FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
+ARG TARGET_IMG=ubuntu:24.04
+FROM ${TARGET_IMG}
 
 ARG ROS_ENV="placeholder"
 ARG ROS_TYPE="base"
@@ -38,3 +39,5 @@ USER $USERNAME
 
 WORKDIR /home/$USERNAME
 RUN echo "source /opt/ros/${ROS_ENV}/setup.bash" >> .bashrc
+
+RUN unset PKG_FILE USERNAME ROS_ENV ROS_TYPE

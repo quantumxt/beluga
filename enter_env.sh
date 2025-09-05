@@ -1,5 +1,8 @@
 #!/bin/bash
 
+D_PATH="docker/.env"
+if [ ! -e "$D_PATH" ]; then
+    bash .utils/gen_env.sh
+fi
+
 bash .utils/select_display.sh
-CONTAINER_NAME=$(docker ps | grep beluga_ros2 | awk '{print $NF}')
-docker exec -it $CONTAINER_NAME bash
