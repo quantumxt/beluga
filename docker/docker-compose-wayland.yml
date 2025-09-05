@@ -1,50 +1,33 @@
-services:
+x-ros2-base: &ros2-base
+  build:
+    context: ..
+    dockerfile: ./docker/Dockerfile
+    args:
+      ROS_ENV: ${ROS_ENV}
+      ROS_TYPE: ${ROS_TYPE}
+      UID: ${UID}
+      GID: ${GID}
+  image: beluga_ros2
+  env_file:
+    - .env
+  tty: true         # Enable TTY allocation
+  stdin_open: true  # Keep stdin open for interactive input
+  user: "${UID}:${GID}"
+  volumes:
+    - /run/user/1000/wayland-0:/run/user/1000/wayland-0
+    - /dev/dri:/dev/dri
+    - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/tmp/wayland-sock
+    - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+    - ./beluga_ws:/home/user/beluga_ws
+  network_mode: host
+
+services:    
   ros2-cpu:
+    <<: *ros2-base
     profiles: [cpu]
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      args:
-        ROS_ENV: ${ROS_ENV}
-        ROS_TYPE: ${ROS_TYPE}
-        UID: ${UID}
-        GID: ${GID}
-    image: beluga_ros2
-    env_file:
-      - .env
-    tty: true         # Enable TTY allocation
-    stdin_open: true  # Keep stdin open for interactive input
-    user: "${UID}:${GID}"
-    volumes:
-      - /run/user/1000/wayland-0:/run/user/1000/wayland-0
-      - /dev/dri:/dev/dri
-      - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/tmp/wayland-sock
-      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
-      - ./beluga_ws:/home/user/beluga_ws
-    network_mode: host
   ros2-gpu:
+    <<: *ros2-base
     profiles: [gpu]
-    build:
-      context: ..
-      dockerfile: ./docker/Dockerfile
-      args:
-        ROS_ENV: ${ROS_ENV}
-        ROS_TYPE: ${ROS_TYPE}
-        UID: ${UID}
-        GID: ${GID}
-    image: beluga_ros2
-    env_file:
-      - .env
-    tty: true         # Enable TTY allocation
-    stdin_open: true  # Keep stdin open for interactive input
-    user: "${UID}:${GID}"
-    volumes:
-      - /run/user/1000/wayland-0:/run/user/1000/wayland-0
-      - /dev/dri:/dev/dri
-      - ${XDG_RUNTIME_DIR}/${WAYLAND_DISPLAY}:/tmp/wayland-sock
-      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
-      - ./beluga_ws:/home/user/beluga_ws
-    network_mode: host
     runtime: nvidia
     deploy:
       resources:
