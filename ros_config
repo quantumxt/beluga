@@ -1,0 +1,3 @@
+# === Update config below ===
+ROS_ENV="jazzy"
+ROS_TYPE="desktop"  # Options: core, base, desktop, simulation, desktop_full

@@ -20,7 +20,7 @@ Use the `feat/cpu` branch for docker image without gpu. Display does not work cu
 # Config
 
 ## ROS Version
-The target distro could be change via the `ROS_ENV` arguement inside `docker/.env` file.
+The target distro could be change via the `ROS_ENV` arguement inside `ros_config` file.
 
 ```yaml
     ...

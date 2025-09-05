@@ -32,7 +32,7 @@ check_output() {
 CUDA_VER=$(cat /usr/local/cuda/version.json | grep -w "cuda" -A 2 | grep version | awk '{print substr($3,2,length($3)-2)}')
 if [[ -z $CUDA_VER ]]; then
     echo ">> Unable to determine CUDA version, checking via nvidia-smi..."
-    # CUDA_VER=$(nvidia-smi | grep CUDA | awk '{print $9}')
+    CUDA_VER=$(nvidia-smi | grep CUDA | awk '{print $9}')
 fi
 
 if [[ -z $CUDA_VER ]]; then
