@@ -12,7 +12,7 @@ get_config () {
 }
 
 d_up () {
-    docker compose -f docker-compose-$1.yml --profile $2 --env-file .env up -d
+    docker compose -f docker-compose-$1.yml --profile $2 up -d
 }
 
 d_build () {
@@ -71,5 +71,4 @@ fi
 d_up $SESSION_TYPE $PROFILE
 
 CONTAINER_NAME=$(docker ps | grep beluga_ros2 | grep $PROFILE | awk '{print $NF}')
-docker exec -it $CONTAINER_NAME env
-# docker exec -it $CONTAINER_NAME bash
+docker exec -it $CONTAINER_NAME bash -i

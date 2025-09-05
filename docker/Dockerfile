@@ -6,7 +6,6 @@ ARG ROS_TYPE="base"
 
 ENV ROS_ENV=${ROS_ENV}
 ENV ROS_TYPE=${ROS_TYPE}
-ENV DISPLAY=${DISPLAY}
 ENV PKG_FILE="packages.txt"
 
 RUN apt update && apt install -y software-properties-common && add-apt-repository universe && rm -rf /var/lib/apt/lists/*
@@ -40,3 +39,5 @@ USER $USERNAME
 
 WORKDIR /home/$USERNAME
 RUN echo "source /opt/ros/${ROS_ENV}/setup.bash" >> .bashrc
+
+RUN unset PKG_FILE USERNAME ROS_ENV ROS_TYPE

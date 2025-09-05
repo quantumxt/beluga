@@ -11,6 +11,8 @@ services:
         UID: ${UID}
         GID: ${GID}
     image: beluga_ros2
+    env_file:
+      - .env
     tty: true         # Enable TTY allocation
     stdin_open: true  # Keep stdin open for interactive input
     user: "${UID}:${GID}"
@@ -32,6 +34,8 @@ services:
         UID: ${UID}
         GID: ${GID}
     image: beluga_ros2
+    env_file:
+      - .env
     tty: true         # Enable TTY allocation
     stdin_open: true  # Keep stdin open for interactive input
     user: "${UID}:${GID}"
