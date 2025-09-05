@@ -1,10 +1,7 @@
 #!/bin/bash
 
 source .utils/check_build.sh
-
-USER=$(whoami)
-SESSION_ID=$(loginctl | grep "$USER" -m 1 | awk '{print $1}')
-SESSION_TYPE=$(loginctl show-session "$SESSION_ID" --property=Type --value)
+source .utils/user.sh
 
 TARGET_IMG="ubuntu:24.04"
 PROFILE="cpu"
