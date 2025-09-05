@@ -24,8 +24,12 @@ The target distro could be change via the `ROS_ENV` arguement inside `ros_config
     ...
     # === Update config below ===
     ROS_ENV="jazzy"
+    ROS_TYPE="desktop"
     ...
 ```
+
+- `ROS_ENV`: The ROS distro.
+- `ROS_TYPE`: The type of ROS installation. `core` consists the minimum, whereas `desktop_full` includes most of the core components, perception and simulation packages.
 
 ## Workspace
 The workspace directory that is attached to the container is defined in the `volumes` section inside `docker-compose.yml` file, which is attached with the following structure: `<host_dir>:<container_dir>`.
