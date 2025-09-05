@@ -1,4 +1,5 @@
-FROM ubuntu:24.04
+ARG TARGET_IMG=ubuntu:24.04
+FROM ${TARGET_IMG}
 
 ARG ROS_ENV="placeholder"
 ARG ROS_TYPE="base"

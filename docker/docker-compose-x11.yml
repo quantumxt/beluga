@@ -1,5 +1,24 @@
 services:
-  ros2:
+  ros2-cpu:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+      args:
+        ROS_ENV: ${ROS_ENV}
+        ROS_TYPE: ${ROS_TYPE}
+        UID: ${UID}
+        GID: ${GID}
+    image: beluga_ros2
+    tty: true         # Enable TTY allocation
+    stdin_open: true  # Keep stdin open for interactive input
+    user: "${UID}:${GID}"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev/dri:/dev/dri
+      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}
+      - ./beluga_ws:/home/user/beluga_ws
+    network_mode: host
+  ros2-gpu:
     build:
       context: ..
       dockerfile: ./docker/Dockerfile
