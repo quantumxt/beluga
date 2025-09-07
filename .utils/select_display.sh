@@ -11,6 +11,14 @@ get_config () {
     echo $R_TYPE
 }
 
+check_install() {
+    if ! which $1 &> /dev/null
+    then
+        echo "[$1] not found! Please install [$1] before continuing..."
+        exit 1
+    fi
+}
+
 d_up () {
     docker compose -f docker-compose-$1.yml --profile $2 up -d
 }
@@ -29,6 +37,9 @@ check_output() {
     fi
 }
 
+# Check installation
+check_install "docker"
+
 CUDA_VER=$(cat /usr/local/cuda/version.json | grep -w "cuda" -A 2 | grep version | awk '{print substr($3,2,length($3)-2)}')
 if [[ -z $CUDA_VER ]]; then
     echo ">> Unable to determine CUDA version, checking via nvidia-smi..."
@@ -41,6 +52,12 @@ else
     echo -e "\nCUDA version: [$CUDA_VER]\n"
     TARGET_IMG="nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04"
     PROFILE="gpu"
+fi
+
+D_RUNTIME=$(docker info | grep -i runtime | grep nvidia)
+if [ -z "$D_RUNTIME" ] && [ "$PROFILE" == "gpu" ]; then
+  echo "Could not find nvidia runtime in docker, falling back to cpu..."
+  PROFILE="cpu"
 fi
 
 cd docker
